@@ -9,11 +9,15 @@
     "2": {
         "name": "Apex Legends",
         "description" : "",
-        "platforms" : "",
-        "price" : "",
-        "stores" : ""
+        "platforms" : [],
+        "price" : [],
+        "stores" : []
     }, 
     "3" : {
-        
+        "name": "Ya mom",
+        "description" : "",
+        "platforms" : [],
+        "price" : [],
+        "stores" : []
     }
 }

@@ -9,6 +9,29 @@ let activityJSON = JSON.parse(activities);
 
 const getBinarySize = (string) => Buffer.byteLength(string, 'utf8');
 
+const filterJSON = (collection, filterType) => {
+  const filtered = [];
+  if (collection === 'games') {
+    gamesJSON.forEach( (game) => {
+      const platforms = game.platforms;
+      platforms.forEach((platform) => {
+        if(platform === filterType) filtered.push(game); 
+      });
+    });
+    return filtered;
+  } if (collection === 'activities') {
+    for (let i = 0; i < activityJSON.length; i += 1) {
+      const { platforms } = activityJSON[i];
+      for (let j = 0; j < platforms.length; i += 1) {
+        if (platforms[i] === filterType) filtered.push(activityJSON[i]);
+      }
+    }
+    return filtered;
+  }
+
+  return filtered;
+};
+
 const respond = (request, response, content, type, status) => {
   const headers = {
     'Content-Type': type,
@@ -39,11 +62,18 @@ const getRandomGameJSON = (platform = 'all', number = 1) => {
   limit = limit < 1 ? 1 : limit;
   limit = limit > 5 ? 5 : limit;
 
+  let filteredJSON = [];
   gamesJSON = _.shuffle(gamesJSON);
+
+  if (platform !== 'all') filteredJSON = filterJSON('games', platform);
 
   const responseObj = [];
   for (let i = 0; i < limit; i += 1) {
-    if (platform === 'all') responseObj.push(gamesJSON[i]);
+    if (platform === 'all') {
+      responseObj.push(gamesJSON[i]);
+    } else {
+      responseObj.push(filteredJSON[i]);
+    }
   }
   return responseObj;
 };
@@ -54,17 +84,24 @@ const getRandomActivityJSON = (type = 'any', number = 1) => {
   limit = limit < 1 ? 1 : limit;
   limit = limit > 5 ? 5 : limit;
 
+  let filteredJSON = [];
+
   activityJSON = _.shuffle(activityJSON);
+  if (type !== 'any') filteredJSON = filterJSON('activities', type);
 
   const responseObj = [];
   for (let i = 0; i < limit; i += 1) {
-    if (type === 'all') responseObj.push(gamesJSON[i]);
+    if (type === 'any') {
+      responseObj.push(activityJSON[i]);
+    } else {
+      responseObj.push(filteredJSON[i]);
+    }
   }
   return responseObj;
 };
 
 const getRandomGame = (request, response, acceptedTypes, httpMethod, params) => {
-  const responseObj = getRandomGameJSON(params.type, params.number);
+  const responseObj = getRandomGameJSON(params.platform, params.number);
   const { length } = responseObj;
 
   if (httpMethod === 'GET') {
