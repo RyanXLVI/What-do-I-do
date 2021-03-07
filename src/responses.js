@@ -12,10 +12,10 @@ const getBinarySize = (string) => Buffer.byteLength(string, 'utf8');
 const filterJSON = (collection, filterType) => {
   const filtered = [];
   if (collection === 'games') {
-    gamesJSON.forEach( (game) => {
-      const platforms = game.platforms;
+    gamesJSON.forEach((game) => {
+      const { platforms } = game;
       platforms.forEach((platform) => {
-        if(platform === filterType) filtered.push(game); 
+        if (platform === filterType) filtered.push(game);
       });
     });
     return filtered;
