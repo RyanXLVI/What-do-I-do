@@ -11,7 +11,10 @@ const urlStruct = {
   '/activity': responseHandler.getRandomActivity,
   '/game': responseHandler.getRandomGame,
   '/default-styles.css': htmlHandler.getCSS,
-  '/printData': responseHandler.printData,
+  '/admin': htmlHandler.getAdmin,
+  '/': htmlHandler.getIndex,
+  '/app': htmlHandler.getApp,
+  '/suggest': htmlHandler.getSuggest,
   notFound: htmlHandler.get404Response,
 };
 
