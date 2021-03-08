@@ -150,7 +150,7 @@ const getRandomGame = (request, response, acceptedTypes, httpMethod, params) => 
 };
 
 const getRandomActivity = (request, response, acceptedTypes, httpMethod, params) => {
-  const responseObj = getRandomActivityJSON(params.platform, params.number);
+  const responseObj = getRandomActivityJSON(params.type, params.number);
   const { length } = responseObj;
 
   if (httpMethod === 'GET') {

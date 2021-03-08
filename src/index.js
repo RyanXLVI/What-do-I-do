@@ -15,6 +15,7 @@ const urlStruct = {
   '/': htmlHandler.getIndex,
   '/app': htmlHandler.getApp,
   '/suggest': htmlHandler.getSuggest,
+  '/image.png': htmlHandler.getImage,
   notFound: htmlHandler.get404Response,
 };
 

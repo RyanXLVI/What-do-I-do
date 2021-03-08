@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <title>What do I do?</title>
+    <link href="default-styles.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav> <a href="/">Home</a> | <span id="current">App</span> | <a href="/suggest">Suggest an Entry</a> | <a href="/admin">Admin</a>
+    <header>
+      <h1>Are you ready to cure your BOREDOM?!</h1>
+    </header>
+    
+    <section>
+      <h2>You want to play a game?</h2>
+      <div id="gameFilters">
+          <h3>Platform</h3>
+            <input type="radio" name="platform" value="pc" class="platform" checked><label for="pc">Sort by PC</label>
+            <input type="radio" name="platform" value="playstation" class="platform"><label for="playstation">Sort by Playstation</label>
+            <input type="radio" name="platform" value="xbox" class="platform"><label for="xbox">Sort by Xbox</label>
+            <input type="radio" name="platform" value="mobile" class="platform"><label for="mobile">Sort by Mobile</label>
+            <input type="radio" name="platform" value="switch" class="platform"><label for="switch">Sort by Switch</label>
+            <input type="radio" name="platform" value="all" class="platform"><label for="all">No Filter</label>
+          <h3>Price</h3>
+            <input type="radio" name="gamePrice" value="free" class="price" checked><label for="free">Free Games</label>
+            <input type="radio" name="gamePrice" value="4.99" class="price"><label for="4.99">Less than $5</label>
+            <input type="radio" name="gamePrice" value="14.99" class="price"><label for="14.99">Less than $15</label>
+            <input type="radio" name="gamePrice" value="29.99" class="price"><label for="29.99">Less than $30</label>
+            <input type="radio" name="gamePrice" value="59.99" class="price"><label for="59.99">Less than $60</label>
+            <input type="radio" name="gamePrice" value="all" class="price"><label for="all">No Filter</label>
+      </div>
+      <p><button id="btnGame">Give me a Game</button></p>
+      <div id="gameContainer">
+        
+      </div>
+    </section>
+    
+    <section>
+      <h2>How about an activity</h2>
+      <div id="activityFilters">
+          <h3>Type</h3>
+            <input type="radio" name="type" value="any" class="type" checked><label for="any">No filter</label>
+            <input type="radio" name="type" value="outdoor" class="type"><label for="outdoor">Sort by Outdoor</label>
+            <input type="radio" name="type" value="indoor" class="type"><label for="indoor">Sort by Indoor</label>
+            <input type="radio" name="type" value="group" class="type"><label for="group">Sort by Group</label>
+            <input type="radio" name="type" value="solo" class="type"><label for="solo">Sort by Solo</label>
+          <h3>Price</h3>
+            <input type="radio" name="activityPrice" value="free" class="price" checked><label for="free">Free Activities</label>
+            <input type="radio" name="activityPrice" value="14.99" class="price"><label for="14.99">Less than $15</label>
+            <input type="radio" name="activityPrice" value="24.99" class="price"><label for="24.99">Less than $25</label>
+            <input type="radio" name="activityPrice" value="49.99" class="price"><label for="49.99">Less than $50</label>
+            <input type="radio" name="activityPrice" value="99.99" class="price"><label for="99.99">Less than $100</label>
+            <input type="radio" name="activityPrice" value="all" class="price"><label for="all">No Filter</label>
+      </div>
+      <p><button id="btnActivity">Give me an activity</button></p>
+      <div id="activityContainer">
+        
+    </div>
+    </section>
+    
+  </body>
+  <script>
+    const gamePriceFilter = document.querySelectorAll('input[name="gamePrice"]');
+    const gamePlatformFilter = document.querySelectorAll('input[name="platform"]');
+    const activityPriceFilter = document.querySelectorAll('input[name="activityPrice"]');
+    const activityTypeFilter = document.querySelectorAll('input[name="type"]');
+
+    const handleGameResponse = (e) => {
+        console.log("e.target =", e.target);
+        console.log("e.target.response =", e.target.response);
+        const obj = JSON.parse(e.target.response);
+        console.log("obj=",obj);
+
+        let container = document.querySelector('#gameContainer');
+        container.innerHTML = `<p>Name: ${obj[0].name}</p>
+            <p>Description: ${obj[0].description}</p>
+            <p>Where to play: ${obj[0].platforms}</p>
+            <p>Price: ${obj[0].price}</p>
+            <p>Where to buy: ${obj[0].stores}</p>`
+    };
+
+    const handleActivityResponse = (e) => {
+        console.log("e.target =", e.target);
+        console.log("e.target.response =", e.target.response);
+        const obj = JSON.parse(e.target.response);
+        console.log("obj=",obj);
+
+        let container = document.querySelector('#activityContainer');
+        container.innerHTML = `<p>Name: ${obj[0].name}</p>
+            <p>Description: ${obj[0].description}</p>
+            <p>Where to play: ${obj[0].platforms}</p>
+            <p>Price: ${obj[0].price}</p>`
+    };
+
+    const downloadGame = (e) => {
+        // remember that an `Event` object gets passed along every time that an event handler or listener calls a function
+        // the `target` property of that event points at the element that sent the event, in this case a button
+        console.log(`An element of id=${e.target.id} was clicked!`);
+
+        let priceFilter;
+        for(let radio of gamePriceFilter){
+            if(radio.checked){
+                priceFilter = radio.value;
+            }
+        }
+
+        let platformFilter;
+        for(let radio of gamePlatformFilter){
+            if(radio.checked){
+                platformFilter = radio.value;
+            }
+        }
+        
+        platformFilter = platformFilter.trim();
+
+        const gameURL = `/game?platform=${platformFilter}&price=${priceFilter}`;
+        const xhr = new XMLHttpRequest();
+        xhr.onload = handleGameResponse;
+        xhr.open("GET",gameURL);
+
+        console.log("url=", gameURL);
+
+        xhr.setRequestHeader('Accept', 'application/javascript');
+        xhr.send();
+    };
+
+    const downloadActivity = (e) => {
+        console.log(`An element of id=${e.target.id} was clicked!`);
+
+        let priceFilter;
+        for(let radio of activityPriceFilter){
+            if(radio.checked){
+                priceFilter = radio.value;
+            }
+        }
+
+        let typeFilter;
+        for(let radio of activityTypeFilter){
+            if(radio.checked){
+                typeFilter = radio.value;
+            }
+        }
+
+        const activityURL = `/activity?type=${typeFilter}&price=${priceFilter}`;
+        console.log(activityURL);
+        const xhr = new XMLHttpRequest();
+        xhr.onload = handleActivityResponse;
+        xhr.open("GET", activityURL);
+
+        xhr.setRequestHeader('Accept', 'application/javascript');
+        xhr.send();
+    };
+  
+    const init = () => {
+        // An Event *Handler*
+        // document.querySelector("#btnJoke").onclick = downloadJoke; // same as below, less typing, use which ever version you prefer
+    
+        // An Event *Listener*
+        document.querySelector("#btnGame").addEventListener("click", downloadGame);
+        document.querySelector("#btnActivity").addEventListener("click", downloadActivity);
+    
+        // **Actually, event handlers and listeners are NOT exactly the same in all use cases - what ARE the differences?**
+    };
+    
+    window.onload = init;
+    
+    </script>
+</html>

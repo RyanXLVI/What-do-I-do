@@ -1,0 +1,53 @@
+<html>
+  <head>
+    <title>What do I do?</title>
+    <link href="default-styles.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <nav> <span id="current">Home</span> | <a href="/app">App</a> | <a href="/suggest">Suggest an Entry</a> | <a href="/admin">Admin</a>
+    <header>
+        <h1>Welcome to <u>"What Do I Do?"</u></h1>
+    </header>
+
+    <p>
+        What do I do is a place for all people who are bored to come and find something to do. These things range from game, both video and not, as well as just random activities one can 
+        do around the house
+    </p>
+
+    <h2>Uses</h2>
+    <ul>
+        <li>Head on over to <a href="/app">App</a> to <i>recieve</i> something to do!</li>
+        <li>Head on over to <a href="/suggest">Suggest</a> to <i>suggest</i> something to do for others!</li>
+    </ul>
+
+    <h2>Want to use "What Do I Do?" in a project?</h2>
+    <p>Good news! There is no API key required to use the API!! Here are the endpoints!</p>
+    <ul>
+        <li><a href="/game">/game</a></li>
+        <ul>
+            <li><a href="/game?platform=pc">/game?platform={enter valid platform}</a></li>
+            <li><a href="/game?price=free">/game?price={enter upper price limit}</a></li>
+        </ul>
+        <li><a href="/activity">/activity</a></li>
+        <ul>
+            <li><a href="/activity?type=any">/game?type={enter valid type}</a></li>
+            <li><a href="/activity?price=free">/game?price={enter upper price limit}</a></li>
+        </ul>
+    </ul>
+
+    <p>The default return is JSON but can be formatted to "text/xml" if you send the proper Accept header</p>
+
+    <p>It is also possible to send a HEAD request to only recieve back the headers</p>
+
+    <h2>Admins</h2>
+
+    <ul>
+        <li>Head to <a href="/admin">Admin</a> to do some... admin things</li>
+        <li>Check out the <a href="/haha-bad">Super secret link</a> to break it all</li>
+        <li>You should totally see my awesome <a href="/default-styles.css">totally cool styles</a></li>
+        <li>Here is some really interesting <a href="/image.png">image</a> that I like</li>
+    </ul>
+    
+    
+  </body>
+</html>
