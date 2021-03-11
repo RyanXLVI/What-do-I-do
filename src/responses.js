@@ -65,7 +65,7 @@ const getRandomGameJSON = (platform = 'all', number = 1, price = 'all') => {
   let filteredJSON = [];
   gamesJSON = _.shuffle(gamesJSON);
 
-  if (platform !== 'all') filteredJSON = filterJSON('games', platform);
+  if (platform !== 'all') filteredJSON = filterJSON('games', platform, price);
 
   const responseObj = [];
   for (let i = 0; i < limit; i += 1) {
@@ -87,7 +87,7 @@ const getRandomActivityJSON = (type = 'any', number = 1, price = 'all') => {
   let filteredJSON = [];
 
   activityJSON = _.shuffle(activityJSON);
-  if (type !== 'any') filteredJSON = filterJSON('activities', type);
+  if (type !== 'any') filteredJSON = filterJSON('activities', type, price);
 
   const responseObj = [];
   for (let i = 0; i < limit; i += 1) {

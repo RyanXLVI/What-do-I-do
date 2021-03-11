@@ -51,5 +51,5 @@ const getImage = (request, response) => {
 };
 
 module.exports = {
-  get404Response, getCSS, getAdmin, getIndex, getApp, getSuggest, getImage
+  get404Response, getCSS, getAdmin, getIndex, getApp, getSuggest, getImage,
 };
