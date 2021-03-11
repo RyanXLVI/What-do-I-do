@@ -15,7 +15,7 @@ const filterJSON = (collection, filterType) => {
     gamesJSON.forEach((game) => {
       const { platforms } = game;
       platforms.forEach((platform) => {
-        if (platform === filterType) filtered.push(game);
+        if (platform.toLowerCase() === filterType) filtered.push(game);
       });
     });
     return filtered;
@@ -56,7 +56,7 @@ const notFound = (request, response) => {
   response.end();
 };
 
-const getRandomGameJSON = (platform = 'all', number = 1) => {
+const getRandomGameJSON = (platform = 'all', number = 1, price = 'all') => {
   let limit = Number(number);
   limit = !limit ? 1 : limit;
   limit = limit < 1 ? 1 : limit;
@@ -78,7 +78,7 @@ const getRandomGameJSON = (platform = 'all', number = 1) => {
   return responseObj;
 };
 
-const getRandomActivityJSON = (type = 'any', number = 1) => {
+const getRandomActivityJSON = (type = 'any', number = 1, price = 'all') => {
   let limit = Number(number);
   limit = !limit ? 1 : limit;
   limit = limit < 1 ? 1 : limit;
@@ -101,7 +101,7 @@ const getRandomActivityJSON = (type = 'any', number = 1) => {
 };
 
 const getRandomGame = (request, response, acceptedTypes, httpMethod, params) => {
-  const responseObj = getRandomGameJSON(params.platform, params.number);
+  const responseObj = getRandomGameJSON(params.platform, params.number, params.price);
   const { length } = responseObj;
 
   if (httpMethod === 'GET') {
@@ -150,7 +150,7 @@ const getRandomGame = (request, response, acceptedTypes, httpMethod, params) => 
 };
 
 const getRandomActivity = (request, response, acceptedTypes, httpMethod, params) => {
-  const responseObj = getRandomActivityJSON(params.type, params.number);
+  const responseObj = getRandomActivityJSON(params.type, params.number, params.price);
   const { length } = responseObj;
 
   if (httpMethod === 'GET') {
