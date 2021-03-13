@@ -1,0 +1,23 @@
+<html>
+  <head>
+    <title>What do I do?</title>
+    <link href="default-styles.css" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <img src='/image.png' alt="image of bored" width="144" height="144">
+    <nav> <a href="/">Home</a> | <a href="/app">App</a> | <a href="/suggest">Suggest an Entry</a> | <span id="current">Admin</span></nav>
+    <header>
+        <h1>Welcome to <u>"What Do I Do?"</u> My Fellow Admin friend!</h1>
+    </header>
+    <p><button id="btnGame" class="orange">Give me all Games</button></p>
+    <p><button id="btnActivity" class="orange">Give me all activities</button></p>
+  </body>
+  <script>
+      document.querySelector('#btnGame').onclick = function() {
+          window.open('/all-games', '_blank');
+      }
+      document.querySelector('#btnActivity').onclick = function() {
+        window.open('/all-activities', '_blank');
+      };
+  </script>
+</html>

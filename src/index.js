@@ -16,7 +16,32 @@ const urlStruct = {
   '/app': htmlHandler.getApp,
   '/suggest': htmlHandler.getSuggest,
   '/image.png': htmlHandler.getImage,
+  '/all-games': responseHandler.printGames,
+  '/all-activities': responseHandler.printActivities,
   notFound: htmlHandler.get404Response,
+};
+
+const handlePost = (request, response, parsedUrl) => {
+  if (parsedUrl.pathname === '/add-game') {
+    const body = [];
+
+    // https://nodejs.org/api/http.html
+    request.on('error', (err) => {
+      console.dir(err);
+      response.statusCode = 400;
+      response.end();
+    });
+
+    request.on('data', (chunk) => {
+      body.push(chunk);
+    });
+
+    request.on('end', () => {
+      const bodyString = Buffer.concat(body).toString(); // name=tony&age=35
+      const bodyParams = query.parse(bodyString); // turn into an object with .name & .age
+      responseHandler.addGame(request, response, bodyParams);
+    });
+  }
 };
 
 const onRequest = (request, response) => {
@@ -25,6 +50,11 @@ const onRequest = (request, response) => {
   const { pathname } = parsedUrl;
   const params = query.parse(parsedUrl.query);
   const httpMethod = request.method;
+
+  if (httpMethod === 'POST') {
+    handlePost(request, response, parsedUrl);
+    return;
+  }
 
   if (urlStruct[pathname]) {
     urlStruct[pathname](request, response, acceptedTypes, httpMethod, params);

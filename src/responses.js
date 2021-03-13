@@ -9,23 +9,26 @@ let activityJSON = JSON.parse(activities);
 
 const getBinarySize = (string) => Buffer.byteLength(string, 'utf8');
 
-const filterJSON = (collection, filterType) => {
-  const filtered = [];
-  if (collection === 'games') {
-    gamesJSON.forEach((game) => {
-      const { platforms } = game;
-      platforms.forEach((platform) => {
-        if (platform.toLowerCase() === filterType) filtered.push(game);
-      });
+const filterArray = (list, filter, filterType) => {
+  const items = [];
+  list.forEach((item) => {
+    const filterItem = item[filterType];
+    filterItem.forEach((medium) => {
+      if (filter === 'all') items.push(item);
+      else if (medium === filter) items.push(item);
     });
+  });
+
+  return items;
+};
+
+const filterJSON = (collection, medium) => {
+  let filtered = [];
+  if (collection === 'games') {
+    filtered = filterArray(gamesJSON, medium, 'platforms');
     return filtered;
   } if (collection === 'activities') {
-    for (let i = 0; i < activityJSON.length; i += 1) {
-      const { platforms } = activityJSON[i];
-      for (let j = 0; j < platforms.length; i += 1) {
-        if (platforms[i] === filterType) filtered.push(activityJSON[i]);
-      }
-    }
+    filtered = filterArray(activityJSON, medium, 'platforms');
     return filtered;
   }
 
@@ -56,52 +59,40 @@ const notFound = (request, response) => {
   response.end();
 };
 
-const getRandomGameJSON = (platform = 'all', number = 1, price = 'all') => {
-  let limit = Number(number);
-  limit = !limit ? 1 : limit;
-  limit = limit < 1 ? 1 : limit;
-  limit = limit > 5 ? 5 : limit;
-
+const getRandomGameJSON = (platform = 'all') => {
   let filteredJSON = [];
   gamesJSON = _.shuffle(gamesJSON);
 
-  if (platform !== 'all') filteredJSON = filterJSON('games', platform, price);
+  if (platform !== 'all') filteredJSON = filterJSON('games', platform);
 
   const responseObj = [];
-  for (let i = 0; i < limit; i += 1) {
-    if (platform === 'all') {
-      responseObj.push(gamesJSON[i]);
-    } else {
-      responseObj.push(filteredJSON[i]);
-    }
+  if (platform === 'all') {
+    responseObj.push(gamesJSON[0]);
+  } else {
+    responseObj.push(filteredJSON[0]);
   }
+
   return responseObj;
 };
 
-const getRandomActivityJSON = (type = 'any', number = 1, price = 'all') => {
-  let limit = Number(number);
-  limit = !limit ? 1 : limit;
-  limit = limit < 1 ? 1 : limit;
-  limit = limit > 5 ? 5 : limit;
-
+const getRandomActivityJSON = (type = 'all') => {
   let filteredJSON = [];
 
   activityJSON = _.shuffle(activityJSON);
-  if (type !== 'any') filteredJSON = filterJSON('activities', type, price);
+  if (type !== 'all') filteredJSON = filterJSON('activities', type);
 
   const responseObj = [];
-  for (let i = 0; i < limit; i += 1) {
-    if (type === 'any') {
-      responseObj.push(activityJSON[i]);
-    } else {
-      responseObj.push(filteredJSON[i]);
-    }
+  if (type === 'all') {
+    responseObj.push(activityJSON[0]);
+  } else {
+    responseObj.push(filteredJSON[0]);
   }
+
   return responseObj;
 };
 
 const getRandomGame = (request, response, acceptedTypes, httpMethod, params) => {
-  const responseObj = getRandomGameJSON(params.platform, params.number, params.price);
+  const responseObj = getRandomGameJSON(params.platform);
   const { length } = responseObj;
 
   if (httpMethod === 'GET') {
@@ -150,7 +141,7 @@ const getRandomGame = (request, response, acceptedTypes, httpMethod, params) => 
 };
 
 const getRandomActivity = (request, response, acceptedTypes, httpMethod, params) => {
-  const responseObj = getRandomActivityJSON(params.type, params.number, params.price);
+  const responseObj = getRandomActivityJSON(params.type);
   const { length } = responseObj;
 
   if (httpMethod === 'GET') {
@@ -161,7 +152,7 @@ const getRandomActivity = (request, response, acceptedTypes, httpMethod, params)
                 <activity>
                     <name>Name: ${responseObj[i].name} </name>
                     <description>Description: ${responseObj[i].description} </description>
-                    <platforms>Where to play: ${responseObj[i].platforms} </platforms>
+                    <platforms>Type of Activity: ${responseObj[i].platforms} </platforms>
                     <price>Cost: ${responseObj[i].price} </price>
                 </activity>`;
       }
@@ -179,7 +170,7 @@ const getRandomActivity = (request, response, acceptedTypes, httpMethod, params)
                 <activity>
                     <name>Name: ${responseObj[i].name} </name>
                     <description>Description: ${responseObj[i].description} </description>
-                    <platforms>Where to play: ${responseObj[i].platforms} </platforms>
+                    <platforms>Type of Activity: ${responseObj[i].platforms} </platforms>
                     <price>Cost: ${responseObj[i].price} </price>
                 </activity>`;
       }
@@ -196,10 +187,59 @@ const getRandomActivity = (request, response, acceptedTypes, httpMethod, params)
   return notFound(request, response);
 };
 
+const findGame = (gameName) => {
+  let gameIndex;
+  for (let i = 0; i < Object.keys(gamesJSON).length; i += 1) {
+    if (gamesJSON[i].name === gameName) gameIndex = i;
+  }
+
+  return gameIndex;
+};
+
+const addGame = (request, response, body) => {
+  let responseCode = 400;
+  const responseJSON = {
+    id: 'missingParams',
+    message: 'All params are required',
+  };
+
+  if (!body.name || !body.description || !body.platform || !body.price || !body.store) {
+    return respond(request, response, JSON.stringify(responseJSON), 'application/json', responseCode);
+  }
+  const foundGame = findGame(body.name);
+  if (foundGame) {
+    responseCode = 204;
+    gamesJSON[foundGame].description = body.description;
+    gamesJSON[foundGame].platforms = body.platform.split(',');
+    gamesJSON[foundGame].prices = body.price.split(',');
+    gamesJSON[foundGame].stores = body.store.split(',');
+    return respondMeta(request, response, responseCode, getBinarySize(JSON.stringify(body)), 'application/json');
+  }
+
+  const index = Object.keys(gamesJSON).length;
+
+  gamesJSON[index] = {};
+  gamesJSON[index].name = body.name;
+  gamesJSON[index].description = body.description;
+  const platforms = body.platform.split(',');
+  gamesJSON[index].platforms = [];
+  for (let i = 0; i < platforms.length; i += 1) {
+    gamesJSON[index].platforms.push(platforms[i]);
+  }
+  // gamesJSON[index].platforms = body.platform.split(','); //["pc", "playstation"] "pc,playstation"
+  gamesJSON[index].prices = body.price.split(',');
+  gamesJSON[index].stores = body.store.split(',');
+
+  responseCode = 201;
+  responseJSON.id = gamesJSON[index].name;
+  responseJSON.message = 'Created Successfully';
+  return respond(request, response, JSON.stringify(responseJSON), 'application/json', responseCode);
+};
+
 const printGames = (request, response) => respond(request, response, JSON.stringify(gamesJSON), 'application/json', 200);
 
 const printActivities = (request, response) => respond(request, response, JSON.stringify(activityJSON), 'application/json', 200);
 
 module.exports = {
-  printGames, printActivities, getRandomActivity, getRandomGame,
+  printGames, printActivities, getRandomActivity, getRandomGame, addGame,
 };

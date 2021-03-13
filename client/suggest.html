@@ -1,0 +1,92 @@
+<html>
+  <head>
+    <title>What do I do?</title>
+    <link href="/default-styles.css" type="text/css" rel="stylesheet" />
+  </head>
+  <script>
+      "use strict";
+      const handleResponse = (e) => {
+        const xhr = e.target;
+        const content = document.querySelector('#content');
+
+        switch(xhr.status){
+            case 200:
+                content.innerHTML = '<b>Success!</b>';
+                break;
+            case 201:
+                content.innerHTML = '<b>Created!</b>';
+                break;
+            case 204:
+                content.innerHTML = '<b>Updated (No Content)!</b>';
+                break;
+            case 400:
+                content.innerHTML = '<b>Bad Request!</b>';
+                break;
+            default:
+                content.innerHTML = '<b>Error code not implemented by client!</b>';
+        }
+
+        const obj = xhr.response && JSON.parse(xhr.response);
+        console.dir(obj);
+        if(obj.message){
+            content.innerHTML += `<p>id = ${obj.id}</p><p>message = ${obj.message}</p>`;
+        }
+      };
+
+      const sendPost = (e) => {
+          e.preventDefault();
+
+          const gameForm = e.target;
+
+          const gameAction = gameForm.getAttribute("action");
+          const gameMethod = gameForm.getAttribute("method");
+
+          const titleField = gameForm.querySelector("#titleField");
+          const descField = gameForm.querySelector("#descField");
+          const platField = gameForm.querySelector("#platField");
+          const priceField = gameForm.querySelector("#priceField");
+          const storeField = gameForm.querySelector("#storeField");
+
+          const formData = `name=${titleField.value}&description=${descField.value}&platform=${platField.value}&price=${priceField.value}&store=${storeField.value}`;
+
+          const xhr = new XMLHttpRequest();
+          xhr.onload = handleResponse;
+          xhr.open(gameMethod, gameAction);
+          xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+          xhr.send(formData);
+
+          return false;
+      }
+
+      const init = () =>{
+          document.querySelector('#gameForm').onsubmit = sendPost;
+      };
+
+      window.onload = init;
+  </script>
+  <body>
+    <img src='/image.png' alt="image of bored" width="144" height="144">
+    <nav> <a href="/">Home</a> | <a href="/app">App</a> | <span if="current">Suggest an Entry</span> | <a href="/admin">Admin</a></nav>
+    <header>
+        <h1>Welcome to <u>"What Do I Do?"</u></h1>
+    </header>
+    <h2>Go Ahead and Suggest a new game!</h2>
+    <section>
+        <form id="gameForm" action="/add-game" method="POST">
+            <label for="title" >Game Name: &emsp;</label> 
+            <input id="titleField" type="text" name="title"/><br>
+            <label for="description">Description (500 characters): </label> 
+            <textarea id="descField" name="description" rows="5" cols="75" maxlength="500">Type Description Here</textarea><br>
+            <label for="platforms">Platforms: </label> 
+            <input id="platField" type="text" name="platforms"/><br>
+            <label for="price">Price: </label> 
+            <input id="priceField" type="text" name="price"/><br>
+            <label for="stores">Stores: </label> 
+            <input id="storeField" type="text" name="stores"/><br>
+            <input type="submit" value="Add Game"/>
+        </form>
+    </section>
+
+    <section id="content"></section>
+  </body>
+</html>

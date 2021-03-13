@@ -4,53 +4,40 @@
     <link href="default-styles.css" type="text/css" rel="stylesheet" />
   </head>
   <body>
-    <nav> <a href="/">Home</a> | <span id="current">App</span> | <a href="/suggest">Suggest an Entry</a> | <a href="/admin">Admin</a>
+    <img src='/image.png' alt="image of bored" width="144" height="144">
+    <nav> <a href="/">Home</a> | <span id="current">App</span> | <a href="/suggest">Suggest an Entry</a> | <a href="/admin">Admin</a></nav>
     <header>
       <h1>Are you ready to cure your BOREDOM?!</h1>
     </header>
     
-    <section>
+    <section id='gameContent'>
       <h2>You want to play a game?</h2>
       <div id="gameFilters">
           <h3>Platform</h3>
-            <input type="radio" name="platform" value="pc" class="platform" checked><label for="pc">Sort by PC</label>
+            <input type="radio" name="platform" value="all" class="platform" checked><label for="all">No Filter</label>
+            <input type="radio" name="platform" value="pc" class="platform"><label for="pc">Sort by PC</label>
             <input type="radio" name="platform" value="playstation" class="platform"><label for="playstation">Sort by Playstation</label>
             <input type="radio" name="platform" value="xbox" class="platform"><label for="xbox">Sort by Xbox</label>
             <input type="radio" name="platform" value="mobile" class="platform"><label for="mobile">Sort by Mobile</label>
             <input type="radio" name="platform" value="switch" class="platform"><label for="switch">Sort by Switch</label>
-            <input type="radio" name="platform" value="all" class="platform"><label for="all">No Filter</label>
-          <h3>Price</h3>
-            <input type="radio" name="gamePrice" value="free" class="price" checked><label for="free">Free Games</label>
-            <input type="radio" name="gamePrice" value="4.99" class="price"><label for="4.99">Less than $5</label>
-            <input type="radio" name="gamePrice" value="14.99" class="price"><label for="14.99">Less than $15</label>
-            <input type="radio" name="gamePrice" value="29.99" class="price"><label for="29.99">Less than $30</label>
-            <input type="radio" name="gamePrice" value="59.99" class="price"><label for="59.99">Less than $60</label>
-            <input type="radio" name="gamePrice" value="all" class="price"><label for="all">No Filter</label>
       </div>
-      <p><button id="btnGame">Give me a Game</button></p>
+      <p><button id="btnGame" class="orange">Give me a Game</button></p>
       <div id="gameContainer">
         
       </div>
     </section>
     
-    <section>
+    <section id='activityContent'>
       <h2>How about an activity</h2>
       <div id="activityFilters">
           <h3>Type</h3>
-            <input type="radio" name="type" value="any" class="type" checked><label for="any">No filter</label>
+            <input type="radio" name="type" value="all" class="type" checked><label for="all">No filter</label>
             <input type="radio" name="type" value="outdoor" class="type"><label for="outdoor">Sort by Outdoor</label>
             <input type="radio" name="type" value="indoor" class="type"><label for="indoor">Sort by Indoor</label>
             <input type="radio" name="type" value="group" class="type"><label for="group">Sort by Group</label>
             <input type="radio" name="type" value="solo" class="type"><label for="solo">Sort by Solo</label>
-          <h3>Price</h3>
-            <input type="radio" name="activityPrice" value="free" class="price" checked><label for="free">Free Activities</label>
-            <input type="radio" name="activityPrice" value="14.99" class="price"><label for="14.99">Less than $15</label>
-            <input type="radio" name="activityPrice" value="24.99" class="price"><label for="24.99">Less than $25</label>
-            <input type="radio" name="activityPrice" value="49.99" class="price"><label for="49.99">Less than $50</label>
-            <input type="radio" name="activityPrice" value="99.99" class="price"><label for="99.99">Less than $100</label>
-            <input type="radio" name="activityPrice" value="all" class="price"><label for="all">No Filter</label>
       </div>
-      <p><button id="btnActivity">Give me an activity</button></p>
+      <p><button id="btnActivity" class="orange">Give me an activity</button></p>
       <div id="activityContainer">
         
     </div>
@@ -95,13 +82,6 @@
         // the `target` property of that event points at the element that sent the event, in this case a button
         console.log(`An element of id=${e.target.id} was clicked!`);
 
-        let priceFilter;
-        for(let radio of gamePriceFilter){
-            if(radio.checked){
-                priceFilter = radio.value;
-            }
-        }
-
         let platformFilter;
         for(let radio of gamePlatformFilter){
             if(radio.checked){
@@ -111,7 +91,7 @@
         
         platformFilter = platformFilter.trim();
 
-        const gameURL = `/game?platform=${platformFilter}&price=${priceFilter}`;
+        const gameURL = `/game?platform=${platformFilter}`;
         const xhr = new XMLHttpRequest();
         xhr.onload = handleGameResponse;
         xhr.open("GET",gameURL);
@@ -125,13 +105,6 @@
     const downloadActivity = (e) => {
         console.log(`An element of id=${e.target.id} was clicked!`);
 
-        let priceFilter;
-        for(let radio of activityPriceFilter){
-            if(radio.checked){
-                priceFilter = radio.value;
-            }
-        }
-
         let typeFilter;
         for(let radio of activityTypeFilter){
             if(radio.checked){
@@ -139,7 +112,7 @@
             }
         }
 
-        const activityURL = `/activity?type=${typeFilter}&price=${priceFilter}`;
+        const activityURL = `/activity?type=${typeFilter}`;
         console.log(activityURL);
         const xhr = new XMLHttpRequest();
         xhr.onload = handleActivityResponse;

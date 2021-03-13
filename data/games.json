@@ -1,23 +1,114 @@
 {
-    "1": {
+    "0": {
         "name": "Among Us",
         "description": "Among Us is an online multiplayer social deduction game developed and published by American game studio Innersloth. It was released on iOS and Android devices in June 2018 and on Windows in November 2018, featuring cross-platform play between these platforms.",
         "platforms": ["pc", "Mobile", "Switch"],
-        "price": [4.99, "free"],
+        "price": ["4.99", "free on mobile"],
         "stores": ["Steam", "Google Play", "Apple App Store", "Nintendo Shop"]
     },
-    "2": {
-        "name": "Apex Legends",
-        "description" : "",
-        "platforms" : ["PlayStation"],
-        "price" : [],
-        "stores" : []
+    "1": {
+        "name": "Smite",
+        "description" : "Smite is a free-to-play, third-person multiplayer online battle arena (MOBA) video game developed and published by Hi-Rez Studios for Microsoft Windows, PlayStation 4, Nintendo Switch, and Xbox One. In Smite, players control a god, goddess, or other mythological figure, and take part in team-based combat, using their abilities and tactics against other player-controlled gods and non-player-controlled minions.The game has multiple player versus player (PVP) modes, many playable characters, and has a successful esports scene with multiple tournaments, including the annual million-dollar Smite World Championship.",
+        "platforms" : ["pc", "playstation", "Xbox", "Switch"],
+        "price" : ["free"],
+        "stores" : ["Steam", "Xbox Store", "PlayStation Store", "Nintendo Shop", "Epic Games Store"]
     }, 
-    "3" : {
-        "name": "Ya mom",
-        "description" : "",
-        "platforms" : ["Xbox"],
-        "price" : [],
-        "stores" : []
+    "2" : {
+        "name": "Warframe",
+        "description" : "Warframe is a cooperative free-to-play third person online action game set in an evolving sci-fi world.",
+        "platforms" : ["pc","playstation","xbox","Switch"],
+        "price" : ["free"],
+        "stores" : ["Steam", "Xbox Store", "Playstation Store", "Nintendo Shop"]
+    },
+    "3": {
+        "name": "Path of Exile",
+        "description" : "You are an Exile, struggling to survive on the dark continent of Wraeclast, as you fight to earn power that will allow you to exact your revenge against those who wronged you. Created by hardcore gamers, Path of Exile is an online Action RPG set in a dark fantasy world.",
+        "platforms" : ["pc","playstation","xbox"],
+        "price" : ["free"],
+        "stores" : ["Steam", "Xbox Store", "Playstation Store"]
+    },
+    "4" : {
+        "name": "Fortnite",
+        "description" : "Fortnite Battle Royale is a competitive shooter between 100 players as they air-drop out of a moving “battle bus,” then fight to survive as the play area slowly shrinks, forcing people into combat.",
+        "platforms" : ["pc","playstation","xbox","Switch","Mobile"],
+        "price" : ["free", "15.99 for the story experience"],
+        "stores" : ["Epic Games Store", "Xbox Store", "Playstation Store", "Nintendo Shop", "Google Play"]
+    },
+    "5" : {
+        "name": "Apex Legends",
+        "description" : "Apex Legends is the award-winning, free-to-play Battle Royale team shooter from Respawn Entertainment. Master an ever-growing roster of legendary characters with powerful abilities and experience strategic squad play and innovative gameplay in the next evolution of Battle Royale.",
+        "platforms" : ["pc","playstation","xbox","Switch"],
+        "price" : ["free"],
+        "stores" : ["Steam", "Xbox Store", "Playstation Store", "Origin", "Nintendo Shop"]
+    },
+    "6" : {
+        "name": "Minecraft",
+        "description" : "In Minecraft, players explore a blocky, procedurally-generated 3D world with infinite terrain, and may discover and extract raw materials, craft tools and items, and build structures or earthworks. Depending on game mode, players can fight computer-controlled 'mobs', as well as cooperate with or compete against other players in the same world. Game modes include a survival mode, in which players must acquire resources to build the world and maintain health, and a creative mode, where players have unlimited resources. Players can modify the game to create new gameplay mechanics, items, and assets.",
+        "platforms" : ["pc","playstation","xbox","Mobile","Switch"],
+        "price" : ["26.95"],
+        "stores" : ["Website", "Xbox Store", "Playstation Store", "Nintendo Shop", "Google Play", "Apple App Store"]
+    },
+    "7" : {
+        "name": "Rocket League",
+        "description" : "Rocket League is a high-powered hybrid of arcade-style soccer and vehicular mayhem with easy-to-understand controls and fluid, physics-driven competition.",
+        "platforms" : ["pc","xbox","playstation","Switch"],
+        "price" : ["free"],
+        "stores" : ["Epic Games Store","Nintendo Shop","Xbox Store","Playstation Store"]
+    },
+    "8" : {
+        "name": "League of Legends",
+        "description" : "League of Legends is one of the world's most popular video games, developed by Riot Games. It features a team-based competitive game mode based on strategy and outplaying opponents. Players work with their team to break the enemy Nexus before the enemy team breaks theirs.",
+        "platforms" : ["pc"],
+        "price" : ["free"],
+        "stores" : ["Website"]
+    },
+    "9" : {
+        "name": "Half-Life",
+        "description" : "Named Game of the Year by over 50 publications, Valve's debut title blends action and adventure with award-winning technology to create a frighteningly realistic world where players must think to survive. Also includes an exciting multiplayer mode that allows you to play against friends and enemies",
+        "platforms" : ["pc","playstation"],
+        "price" : ["9.99"],
+        "stores" : ["steam", "Playstation Store"]
+    },
+    "10" : {
+        "name": "Portal 2",
+        "description" : "The 'Perpetual Testing Initiative' has been expanded to allow you to design co-op puzzles for you and your friends!",
+        "platforms" : ["pc","playstation","xbox"],
+        "price" : ["9.99"],
+        "stores" : ["Steam", "Xbox Store", "Playstation Store"]
+    },
+    "11" : {
+        "name": "Call of Duty: Black ops Cold War",
+        "description" : "Black Ops Cold War's campaign is set during the early 1980s of the Cold War, taking place between Call of Duty: Black Ops (2010) and Black Ops II (2012) chronologically. It is centered around a pursuit of the alleged Soviet spy Perseus, whose stated goal is to subvert the United States and tilt the balance of power toward the Soviet Union. For the campaign, the player takes control of 'Bell', who is recruited by CIA officer Russell Adler into a multinational task force created to hunt down Perseus. The campaign also sees the return of Black Ops characters Alex Mason, Frank Woods, and Jason Hudson, with Mason also being the playable character in certain missions.",
+        "platforms" : ["pc","playstation","xbox"],
+        "price" : ["59.99"],
+        "stores" : ["Xbox Store", "Playstation Store","Battle.net"]
+    },
+    "12" : {
+        "name": "Beat Saber",
+        "description" : "Beat Saber is a VR rhythm game where you slash the beats of adrenaline-pumping music as they fly towards you, surrounded by a futuristic world.",
+        "platforms" : ["pc", "VR"],
+        "price" : ["29.99"],
+        "stores" : ["Oculus Store", "Steam"]
+    },
+    "13" : {
+        "name": "Cyberpunk 2077",
+        "description" : "Cyberpunk 2077 is an open-world, action-adventure story set in Night City, a megalopolis obsessed with power, glamour and body modification. You play as V, a mercenary outlaw going after a one-of-a-kind implant that is the key to immortality.",
+        "platforms" : ["pc","playstation","xbox"],
+        "price" : ["59.99"],
+        "stores" : ["Epic Games Store", "Xbox Store", "Playstation Store", "steam"]
+    },
+    "14" : {
+        "name": "Grand Theft Auto V",
+        "description" : "Grand Theft Auto V for PC offers players the option to explore the award-winning world of Los Santos and Blaine County in resolutions of up to 4k and beyond, as well as the chance to experience the game running at 60 frames per second.",
+        "platforms" : ["pc","playstation","xbox"],
+        "price" : ["29.98"],
+        "stores" : ["Epic Games Store", "Xbox Store", "Playstation Store", "Steam"]
+    },
+    "15" : {
+        "name": "The Elder Scrolls V: Skyrim",
+        "description" : "Winner of more than 200 Game of the Year Awards, Skyrim Special Edition brings the epic fantasy to life in stunning detail. The Special Edition includes the critically acclaimed game and add-ons with all-new features like remastered art and effects, volumetric god rays, dynamic depth of field, screen-space.",
+        "platforms" : ["pc","playstation","xbox","Switch"],
+        "price" : ["39.99"],
+        "stores" : ["Xbox Store", "Playstation Store", "Nintendo Shop", "Steam"]
     }
 }

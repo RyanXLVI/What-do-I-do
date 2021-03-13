@@ -1,20 +1,56 @@
 {
     "1": {
         "name": "Read a book",
-        "description": "",
-        "platforms": [],
-        "price": []
+        "description": "Grab your favorite, lay in bed and immerse yourself in the world created in front of you!",
+        "platforms": ["Indoor", "Solo"],
+        "price": ["Depends on the book you read"]
     },
     "2": {
         "name": "Workout",
-        "description" : "",
-        "platforms" : [],
-        "price" : []
+        "description" : "Pick up that dusty old barbell over there and get working out so you can be ripped and impress all of those around you!",
+        "platforms" : ["Outdoor", "Indoor", "Solo", "Group"],
+        "price" : ["The price of a gym membership"]
     }, 
     "3" : {
         "name": "Watch a movie",
-        "description" : "",
-        "platforms" : [],
-        "price" : []
+        "description" : "Pick a movie to either watch by yourself or with others and fall in love with characters you may never meet in real life!",
+        "platforms" : ["Group", "Solo", "Indoor", "Outdoor"],
+        "price" : ["Depends on the movie you watch"]
+    },
+    "4" : {
+        "name": "Ping Pong",
+        "description": "Grab a friend, or a foe, and battle on the table-top tennis court by hitting the ball back and forth until one inevitably misses!",
+        "platforms": ["Group","Solo","Indoor","Outdoor"],
+        "price": ["Get yourself a ping pong table and find out!"]
+    },
+    "5" : {
+        "name": "Football",
+        "description": "Grab some friends, or your kid, and watch 22 men run angrily at each other to get this oddly shaped ball into this imaginary space of solitude!",
+        "platforms": ["Group","Solo","Indoor","Outdoor"],
+        "price": ["Cable is expensive, so just watch your neighbors!(Don't actually)"]
+    },
+    "6" : {
+        "name": "Hockey",
+        "description": "Watch as 12 people slide around on ice with metal blades and smack each into walls because the hate each other all to get this tiny rubber puck into a small net.",
+        "platforms": ["Group","Indoor"],
+        "price": ["Just buy some ice skates!"]
+    },
+    "7" : {
+        "name": "Tennis",
+        "description": "You have seen Ping Pong, now get ready for the bigger brother Tennis which uses a bigger ball and a bigger rackets to smack the ball back and forth!",
+        "platforms": ["Group","Indoor","Outdoor"],
+        "price": ["Just find some free court and get swinging!"]
+    },
+    "8" : {
+        "name": "Baseball",
+        "description": "You ever see something flying at you faster than a car and think, 'I can hit that'? Than baseball is the sport for you!",
+        "platforms": ["Group","Indoor","Outdoor"],
+        "price": ["All you need is some cleats, a bat and a helmet... so like $99"]
+    },
+    "9" : {
+        "name": "Drinking the blood of your enemies",
+        "description": "You ever just hate someone? Think of them as your enemy? Than just drink their blood, like a good 'ol classic vampire. (Disclaimer: This activity is completely illegal and should not be performed)",
+        "platforms": ["Solo","Indoor","Outdoor"],
+        "price": ["A few years in Jail"]
     }
 }
