@@ -15,7 +15,7 @@ const filterArray = (list, filter, filterType) => {
     const filterItem = item[filterType];
     filterItem.forEach((medium) => {
       if (filter === 'all') items.push(item);
-      else if (medium === filter) items.push(item);
+      else if (medium.toLowerCase() === filter) items.push(item);
     });
   });
 
